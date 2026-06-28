@@ -43,7 +43,7 @@ export class PokemonsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} pokemon`;
+    return this.getPokemonInformation(id);
   }
 
   update(id: number, updatePokemonDto: UpdatePokemonDto) {
@@ -56,6 +56,11 @@ export class PokemonsService {
 
   private async getPokemonInformation(id: number): Promise<Pokemon> {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+
+    if (response.status === 404) {
+      throw new Error(`Pokemon with ${id} nos found`)
+    }
+
     const data = (await response.json()) as PokeapiPokemonResponse;
 
     return {
