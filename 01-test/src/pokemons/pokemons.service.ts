@@ -6,7 +6,7 @@ import {
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { PaginationDto } from 'src/shared/dtos/pagination.dto';
-import { PokeapiResponse } from './interfaces/pokeapi.response';
+import { PokeApiResponse } from './interfaces/pokeapi.responses';
 import { Pokemon } from './entities/pokemon.entity';
 import { PokeapiPokemonResponse } from './interfaces/pokeapi-pokemon.response';
 
@@ -48,7 +48,7 @@ export class PokemonsService {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
 
     const response = await fetch(url);
-    const data = (await response.json()) as PokeapiResponse;
+    const data = (await response.json()) as PokeApiResponse;
 
     const pokemonPromises = data.results.map((result) => {
       const url = result.url;
